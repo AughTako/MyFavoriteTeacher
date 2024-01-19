@@ -1,0 +1,5 @@
+.pdf-link {
+    color: blue; /* Change to your preferred text color */
+    text-decoration: underline; /* Add underline for links */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}

@@ -1,0 +1,13 @@
+<h2>Admin panel</h2>
+<table>
+    <th>Korisnicko ime</th>
+    <th>Ime</th>
+    <th>Prezime</th>
+    <th>CV</th>
+    <tr *ngFor="let r of requests">
+        <td>{{ r.username }}</td>
+        <td>{{ r.first_name }}</td>
+        <td>{{ r.last_name }}</td>
+        <td><a (click)="openPDF(r.CV)">View CV</a></td>
+    </tr>
+</table>

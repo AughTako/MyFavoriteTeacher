@@ -1,0 +1,145 @@
+<h2>Register</h2>
+<hr>
+<form (ngSubmit)="register()" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td>
+                <label for="kor_ime">Korisnicko ime: </label>
+            </td>
+            <td>
+                <input type="text" name="kor_ime" id="" [(ngModel)]="username" required>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="lozinka">Lozinka:</label>
+            </td>
+            <td>
+                <input type="password" name="lozinka" id="" [(ngModel)]="password" required>
+            </td>
+        </tr>
+    
+        <tr>
+            <td><label for="reg">Tip korisnika</label></td>
+            <td>
+                <label for="tip">Ucenik</label>
+                <input type="radio" name="tip" value="Ucenik" [(ngModel)]="type" (change)="onUserTypeChange()" checked>
+                <label for="tip">Nastavnik</label>
+                <input type="radio" name="tip" value="Nastavnik" [(ngModel)]="type" (change)="onUserTypeChange()">
+            </td>
+        </tr>
+    
+        <tr>
+            <td><label for="bezb_pitanje">Bezbednosno pitanje: </label></td>
+            <td><input type="text" name="bezb_pitanje" id="" [(ngModel)]="sec_question" required></td>
+            <td><label for="bezb_pitanje_odg">Odgovor na pitanje: </label></td>
+            <td><input type="text" name="bezb_pitanje_odg" id="" [(ngModel)]="sec_answer" required></td>
+            
+        </tr>
+        <tr>
+            <td><label for="ime">Ime:</label></td>
+            <td><input type="text" name="ime" id="" [(ngModel)]="first_name" required></td>
+        </tr>
+        <tr>
+            <td><label for="prezime">Prezime:</label></td>
+            <td><input type="text" name="prezime" id="" [(ngModel)]="last_name" required></td>
+        </tr>
+        <tr>
+            <td>Pol:</td>
+            <td colspan="2">
+                <label for="pol">M</label>
+                <input type="radio" name="pol" value="M" [(ngModel)]="gender">
+                <label for="pol">Z</label>
+                <input type="radio" name="pol" value="Z" [(ngModel)]="gender">
+            </td>
+        </tr>
+    
+        <tr>
+            <td><label for="adresa">Adresa</label></td>
+            <td>
+                <input name="adresa" type="text" [(ngModel)]="address" required>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="telefon">Telefon</label></td>
+            <td>
+                <input name="telefon" type="text" [(ngModel)]="phone" required>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="email">E-mail adresa</label></td>
+            <td>
+                <input name="email" type="text" [(ngModel)]="email" required>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="avatar">Profilna slika (max 3MB): </label></td>
+            <td>
+                <input type="file" (change)="onAvatarChange($event)" accept="image/*">
+            </td>
+        </tr>
+    
+        <tr *ngIf="type !== 'Nastavnik'">
+            <td><label for="tip_skole">Tip skole:</label></td>
+            <td>
+                <select name="tip_skole" id="" [(ngModel)]="school_type">
+                    <option value="osnovna">Osnovna skola</option>
+                    <option value="srednja-gimnazija">Srednja-gimnazija</option>
+                    <option value="srednja-strucna">Srednja-strucna</option>
+                    <option value="Srednja-umetnicka">Srednja-umetnicka</option>
+                </select>
+            </td>
+            <td><label for="tren_razred">Trenutni razred:</label></td>
+            <td><input type="number" name="tren_razred" id="" [(ngModel)]="school_year" min=1 max=8 required></td>
+        </tr>
+    
+        <hr *ngIf="type === 'Nastavnik'">
+    
+        <tr *ngIf="type === 'Nastavnik'">
+            <td><label for="CV">CV:</label></td>
+            <td>
+                <input type="file" name="CV" id="" (change)="onCVChange($event)" accept=".pdf">
+            </td>
+        </tr>
+    
+        <tr *ngIf="type === 'Nastavnik'">
+            <td><label for="predmeti">Predmeti koje podučavate:</label></td>
+            <td colspan="3">
+                <select name="predmeti" id="" [(ngModel)]="subjects" multiple required>
+                    <option value="Matematika">Matematika</option>
+                    <option value="Fizika">Fizika</option>d
+                    <!-- Add other subjects as needed -->
+                </select>
+            </td>
+        </tr>
+        
+        <tr *ngIf="type === 'Nastavnik'">
+            <td><label for="uzrast">Uzrast koji podučavate:</label></td>
+            <td colspan="3">
+                <select name="uzrast" id="" [(ngModel)]="ageGroups" multiple required>
+                    <option value="Osnovna škola 1-4. razred">Osnovna škola 1-4. razred</option>
+                    <option value="Osnovna škola 5-8. razred">Osnovna škola 5-8. razred</option>
+                    <option value="Srednja škola">Srednja škola</option>
+                    <!-- Add other age groups as needed -->
+                </select>
+            </td>
+        </tr>
+        
+        <tr *ngIf="type === 'Nastavnik'">
+            <td><label for="izvor_informacija">Gde ste čuli za naš sajt?</label></td>
+            <td colspan="3">
+                <input type="text" name="izvor_informacija" [(ngModel)]="sourceOfInformation" required>
+            </td>
+        </tr>
+    
+        <tr>
+            <td style="color: red;">
+                {{message}}
+            </td>
+        </tr>
+        <tr>
+            <td><button type="submit">Registruj se</button></td>
+        </tr>
+    
+    </table>
+</form>
