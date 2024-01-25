@@ -7,16 +7,18 @@
     <link rel="stylesheet" type="text/css" href="login.component.css">
 </head>
 <body>
-    <form>
+    <form (ngSubmit)="login()">
         <h2>Login</h2>
 
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username" name="username" [(ngModel)]="username">
 
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" [(ngModel)]="password">
 
         <button type="submit">Login</button>
+
+        <label for="">{{ message }}</label>
     </form>
 </body>
 </html>

@@ -79,7 +79,7 @@ export class UnifiedService {
       password: password
     }
 
-    return this.http.post(`${this.uri}/login`, data)
+    return this.http.post(`${this.uri}/users/login`, data)
   }
 
   login_admin(username: String, password: String) {
@@ -97,5 +97,49 @@ export class UnifiedService {
 
   getPDFUrl(pdfPath: string): string {
     return `${this.uri}/pdf/${pdfPath.replace('C:/Users/Nazgul/Desktop/Project/backend/uploads', '')}`;
+  }
+
+  acceptTeacher(username_: String) {
+    const data = {
+      username: username_
+    }
+    return this.http.post(`${this.uri}/admin/accept`, data)
+  }
+
+  declineTeacher(username_: String) {
+    const data = {
+      username: username_
+    }
+
+    return this.http.post(`${this.uri}/admin/decline`, data)
+  }
+
+  changePassword(new_password: String, old_password: String, username_: String, flag_: boolean){
+    const data = {
+      username: username_? username_ : null,
+      old_password: old_password,
+      new_password: new_password,
+      flag: flag_
+    }
+    return this.http.post(`${this.uri}/users/changepassword`, data)
+  }
+
+  findUser(username_: String){
+    const data = {
+      username: username_
+    }
+    return this.http.post(`${this.uri}/users/finduser`, data);
+  }
+
+  getNumberOfStudents() {
+    return this.http.get(`${this.uri}/users/get-students`)
+  }
+
+  getNumberOfTeachers() {
+    return this.http.get(`${this.uri}/users/get-teachers`)
+  }
+
+  engagedTeachers(sortBy: string, sortOrder: string, searchName: string, searchLast: string, searchSubject: string){
+    return this.http.get(`${this.uri}/users/engaged-teachers/?sortBy=${sortBy}&sortOrder=${sortOrder}&searchName=${searchName}&searchLast=${searchLast}&searchSubject=${searchSubject}`)
   }
 }

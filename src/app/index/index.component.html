@@ -1,0 +1,38 @@
+<div>
+    <h3>Dobrodosli, <a [routerLink]="['/login']">ulogujte se</a></h3>
+</div>
+<div>
+    <table>
+        <th>Broj ucenika na sajtu</th>
+        <th>Broj aktivnih nastavnika</th>
+        <tr>
+            <td>{{numberOfStudents}}</td>
+            <td>{{numberOfTeachers}}</td>
+        </tr>
+    </table>
+</div>
+<hr>
+<div>
+    <table>
+        <tr>
+            <td>Ime:</td>
+            <td><input type="text" [(ngModel)]="first_name"></td>
+            <td>Prezime:</td>
+            <td><input type="text" [(ngModel)]="last_name"></td>
+            <td>Predmet:</td>
+            <td><input type="text" [(ngModel)]="subject"></td>
+            <button (click)="search()">Pretrazi</button>
+
+        </tr>
+    </table>
+    <table>
+        <th (click)="sortByName()">Ime</th>
+        <th (click)="sortByLastName()">Prezime</th>
+        <th (click)="sortBySubjects()">Predmeti</th>
+        <tr *ngFor="let t of engagedTeachers">
+            <td>{{t.personalInfo.first_name}}</td>
+            <td>{{t.personalInfo.last_name}}</td>
+            <td *ngFor="let sub of t.schoolInfo.subjects">{{sub}}</td>
+        </tr>
+    </table>
+</div>

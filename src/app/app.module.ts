@@ -9,6 +9,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { UcenikComponent } from './ucenik/ucenik.component';
+import { NastavnikComponent } from './nastavnik/nastavnik.component';
+import { IndexComponent } from './index/index.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,11 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
     LoginComponent,
     RegisterComponent,
     AdminComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    ResetPasswordComponent,
+    UcenikComponent,
+    NastavnikComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,

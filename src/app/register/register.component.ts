@@ -29,11 +29,20 @@ export class RegisterComponent {
   sourceOfInformation: String = '';
 
   /*
-    TODO:
+    TODO Relative path
     File names shouldnt be static like:
     C:\\Users\\Nazgul\\Desktop\\Project\\backend\\uploads\\pdfs\\
     but instead just a relative path to the file
    */
+  
+  /*
+    TODO Limit size
+    Limit the size of profile pic and pdf
+  */
+  /*
+    TODO Regex
+    Password regex
+  */
 
   message: String = '';
   constructor(private service: UnifiedService) {}
@@ -43,8 +52,6 @@ export class RegisterComponent {
     if (file) {
       this.service.uploadImage(file).subscribe((response: any) => {
         this.avatarPath = response.imagePath;
-        console.log(this.avatarPath)
-        // Store the avatarPath wherever needed
       });
     }
   }
@@ -54,7 +61,6 @@ export class RegisterComponent {
     if (file) {
       this.service.uploadPDF(file).subscribe((response: any) => {
         this.cvPath = response.pdfPath;
-        // Store the CVPath wherever needed
       });
     }
   }

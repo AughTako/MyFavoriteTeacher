@@ -13,9 +13,11 @@ export class AdminComponent implements OnInit {
 
   constructor(private service: UnifiedService, private sanitizer: DomSanitizer) {}
 
+  message: String = '';
+
   ngOnInit(): void {
     this.getRequests();
-    
+    this.message = '';
   }
 
   getRequests() {
@@ -30,5 +32,27 @@ export class AdminComponent implements OnInit {
   openPDF(pdfPath: String) {
     const pdfUrl = this.service.getPDFUrl(pdfPath.toString().replace('C:\\Users\\Nazgul\\Desktop\\Project\\backend\\uploads\\pdfs\\', ''));
     window.open(pdfUrl.toString(), '_blank');
+  }
+
+  acceptTeacher(username: String) {
+    this.service.acceptTeacher(username).subscribe((msg: any)=>{
+      if(msg) {
+        this.message = msg.message;
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
+      }
+    });
+  }
+
+  declineTeacher(username: String) {
+    this.service.declineTeacher(username).subscribe((msg: any)=>{
+      if(msg) {
+        this.message = msg.message;
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
+      }
+    });
   }
 }
