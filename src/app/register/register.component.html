@@ -82,15 +82,18 @@
         <tr *ngIf="type !== 'Nastavnik'">
             <td><label for="tip_skole">Tip skole:</label></td>
             <td>
-                <select name="tip_skole" id="" [(ngModel)]="school_type">
+                <select name="tip_skole" (change)="checkSchoolType()" id="" [(ngModel)]="school_type">
                     <option value="osnovna">Osnovna skola</option>
-                    <option value="srednja-gimnazija">Srednja-gimnazija</option>
-                    <option value="srednja-strucna">Srednja-strucna</option>
-                    <option value="Srednja-umetnicka">Srednja-umetnicka</option>
+                    <option value="srednja gimnazija">Srednja-gimnazija</option>
+                    <option value="srednja strucna">Srednja-strucna</option>
+                    <option value="Srednja umetnicka">Srednja-umetnicka</option>
                 </select>
             </td>
             <td><label for="tren_razred">Trenutni razred:</label></td>
-            <td><input type="number" name="tren_razred" id="" [(ngModel)]="school_year" min=1 max=8 required></td>
+            <td>
+                <input type="number" name="tren_razred" id="" *ngIf="switchNumbers == false" [(ngModel)]="school_year" min=1 max=8 required>
+                <input type="number" name="tren_razred" id="" *ngIf="switchNumbers == true" [(ngModel)]="school_year" min=1 max=4 required>
+            </td>
         </tr>
     
         <hr *ngIf="type === 'Nastavnik'">
@@ -131,9 +134,9 @@
             <td><label for="uzrast">Uzrast koji podučavate:</label></td>
             <td colspan="3">
                 <select name="uzrast" id="" [(ngModel)]="ageGroups" multiple required>
-                    <option value="Osnovna škola 1-4. razred">Osnovna škola 1-4. razred</option>
-                    <option value="Osnovna škola 5-8. razred">Osnovna škola 5-8. razred</option>
-                    <option value="Srednja škola">Srednja škola</option>
+                    <option value="Osnovna skola 1-4">Osnovna škola 1-4. razred</option>
+                    <option value="Osnovna skola 5-8">Osnovna škola 5-8. razred</option>
+                    <option value="Srednja skola">Srednja škola</option>
                     <!-- Add other age groups as needed -->
                 </select>
             </td>

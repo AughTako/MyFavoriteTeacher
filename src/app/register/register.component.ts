@@ -69,8 +69,8 @@ export class RegisterComponent {
     console.log('Usao u reg')
     if (this.avatarPath) {
         if (this.type === 'Nastavnik' && this.cvPath) {
-            this.service.register(this.username, this.password, this.type
-              ,this.sec_question, this.sec_answer, this.first_name,
+            this.service.register(this.username, this.password, this.type,
+              this.sec_question, this.sec_answer, this.first_name,
               this.last_name, this.gender, this.address, this.phone, this.email,
               this.avatarPath, this.cvPath, this.school_type, this.school_year,
               this.subjects, this.ageGroups, this.sourceOfInformation)
@@ -79,8 +79,8 @@ export class RegisterComponent {
                 console.log(this.message);
             });
         } else {
-          this.service.register(this.username, this.password, this.type
-            ,this.sec_question, this.sec_answer, this.first_name,
+          this.service.register(this.username, this.password, this.type,
+            this.sec_question, this.sec_answer, this.first_name,
             this.last_name, this.gender, this.address, this.phone, this.email,
             this.avatarPath, '', this.school_type, this.school_year,
             [], [], '')
@@ -95,9 +95,17 @@ export class RegisterComponent {
   }
 
   showTeacherFields: boolean = false;
+  switchNumbers: boolean = false;
+
+  checkSchoolType(){
+    if(this.school_type !== 'osnovna')
+      this.switchNumbers = true;
+    else {
+      this.switchNumbers = false;
+    }
+  }
 
   onUserTypeChange() {
-      // Toggle the boolean variable based on the selected user type
       this.showTeacherFields = this.type === 'Nastavnik';
   }
 }

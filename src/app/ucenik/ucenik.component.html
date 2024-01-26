@@ -1,1 +1,113 @@
-<p>ucenik works!</p>
+<body>
+    <h2>Profil</h2>
+    <h4>Dobrodosli, {{user.personalInfo.first_name}}</h4>
+    <h4>{{message}}</h4>
+    <img *ngIf="avatarUrl" [src]="avatarUrl" alt="Avatar">
+    <table>
+        <tr>
+            <td>
+                <p>Ime:</p>
+                <p>{{user.personalInfo.first_name}}</p>
+
+            </td>
+            <td>
+                <p>Prezime:</p>
+                <p>{{user.personalInfo.last_name}}</p>
+            </td>
+            <td>
+                <p>E-mail:</p>
+                <p>{{user.personalInfo.email}}</p>
+            </td>
+            <td>
+                <p>Telefon:</p>
+                <p>{{user.personalInfo.phone}}</p>
+            </td>
+            <td>
+                <p>Adresa:</p>
+                <p>{{user.personalInfo.address}}</p>
+            </td>
+            <td>
+                <p>Tip skole:</p>
+                <p>{{user.schoolInfo.school_type}}</p>
+            </td>
+            <td>
+                <p>Trenutni razred:</p>
+                <p>{{user.schoolInfo.currentGrade}}</p>
+            </td>
+        </tr>
+    </table>
+
+    <p (click)="changeInfoToggle()">Azuriraj podatke?</p>
+
+    <table *ngIf="changeInfo">
+        <tr>
+            <td>
+                <p>Ime:</p>
+                <p><input type="text" [(ngModel)]="first_name"></p>
+
+            </td>
+            <td>
+                <p>Prezime:</p>
+                <p><input type="text" [(ngModel)]="last_name"></p>
+            </td>
+            <td>
+                <p>E-mail:</p>
+                <p><input type="text" [(ngModel)]="email"></p>
+            </td>
+            <td>
+                <p>Telefon:</p>
+                <p><input type="text" [(ngModel)]="phone"></p>
+            </td>
+            <td>
+                <p>Adresa:</p>
+                <p><input type="text" [(ngModel)]="address"></p>
+            </td>
+            <td>
+                <p>Tip skole:</p>
+                <select name="tip_skole" [(ngModel)]="school_type">
+                    <option value="osnovna">Osnovna skola</option>
+                    <option value="srednja-gimnazija">Srednja-gimnazija</option>
+                    <option value="srednja-strucna">Srednja-strucna</option>
+                    <option value="Srednja-umetnicka">Srednja-umetnicka</option>
+                </select>
+            </td>
+            <td>
+                <p>Trenutni razred:</p>
+                <input type="number" name="tren_razred" id="" [(ngModel)]="currectGrade" min=1 max=8 required>
+            </td>
+            <td>
+                <p>Profilna slika:</p>
+                <input type="file">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+            <button (click)="changeInformation()">Izmeni</button>
+        </tr>
+    </table>
+    <hr>
+    <h3>Nastavnici</h3>
+    <table>
+        <tr>
+            <td>Ime:</td>
+            <td><input type="text" [(ngModel)]="first_name_search"></td>
+            <td>Prezime:</td>
+            <td><input type="text" [(ngModel)]="last_name_search"></td>
+            <td>Predmet:</td>
+            <td><input type="text" [(ngModel)]="subjects_search"></td>
+            <button (click)="search()">Pretrazi</button>
+
+        </tr>
+    </table>
+    <table>
+        <th (click)="sortByName()">Ime</th>
+        <th (click)="sortByLastName()">Prezime</th>
+        <th (click)="sortBySubjects()">Predmeti</th>
+        <tr *ngFor="let teacher of teachers">
+            <td>{{teacher.personalInfo.first_name}}</td>
+            <td>{{teacher.personalInfo.last_name}}</td>
+            <td>{{teacher.schoolInfo.subjects}}</td>
+        </tr>
+    </table>
+    
+</body>

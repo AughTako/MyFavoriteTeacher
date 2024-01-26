@@ -95,8 +95,12 @@ export class UnifiedService {
     return this.http.get(`${this.uri}/admin`)
   }
 
-  getPDFUrl(pdfPath: string): string {
-    return `${this.uri}/pdf/${pdfPath.replace('C:/Users/Nazgul/Desktop/Project/backend/uploads', '')}`;
+  getImgUrl(pdfPath: string): string {
+    return `${this.uri}/image/${pdfPath.replace('C:/Users/Nazgul/Desktop/Project/backend/uploads', '')}`;
+  }
+
+  getPDFUrl(imgPath: string): string {
+    return `${this.uri}/pdf/${imgPath.replace('C:/Users/Nazgul/Desktop/Project/backend/uploads', '')}`;
   }
 
   acceptTeacher(username_: String) {
@@ -141,5 +145,29 @@ export class UnifiedService {
 
   engagedTeachers(sortBy: string, sortOrder: string, searchName: string, searchLast: string, searchSubject: string){
     return this.http.get(`${this.uri}/users/engaged-teachers/?sortBy=${sortBy}&sortOrder=${sortOrder}&searchName=${searchName}&searchLast=${searchLast}&searchSubject=${searchSubject}`)
+  }
+
+  changeInfo(username: String, first_name: String, last_name: String, email: String, phone: String, address: String, schoolType: String, currentGrade: number) {
+    const data = {
+      username: username,
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      phone: phone,
+      address: address,
+      schoolType: schoolType,
+      currentGrade: currentGrade
+    }
+    return this.http.post(`${this.uri}/users/change-information`, data);
+  }
+
+  getTeachersForGrade(school_type: String, school_year: number) {
+    return this.http.get(`${this.uri}/users/teachers/?type=${school_type}&year=${school_year}`);
+  }
+
+  filterTeachers(school_type: String, school_year: number, searchFirst: String, searchLast: String, searchSubject: String, sortBy: String, sortOrder: String){
+    return this.http.get(
+      `${this.uri}/users/filter/?type=${school_type}&year=${school_year}&first_name=${searchFirst}&last_name=${searchLast}&subject=${searchSubject}&sortBy=${sortBy}&sortOrder=${sortOrder}`
+      )
   }
 }
