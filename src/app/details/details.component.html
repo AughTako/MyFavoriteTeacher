@@ -1,0 +1,120 @@
+<body>
+
+    <div class="container" *ngIf="user.type==='Ucenik'">
+        <h2>Profesor: {{teacher.personalInfo.first_name}} {{teacher.personalInfo.last_name}}</h2>
+        <img *ngIf="avatarUrl" [src]="avatarUrl" alt="Avatar" class="img-thumbnail">
+        <div class="row">
+            <div class="col-sm-6">
+                <table class="table text-center">
+                    <thead class="thead-dark">
+                        <th>Ime</th>
+                        <th>Prezime</th>
+                        <th>E-mail</th>
+                        <th>Adresa</th>
+                        <th>Telefon</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>{{teacher.personalInfo.first_name}}</p>
+                            </td>
+                            <td>
+                                <p>{{teacher.personalInfo.last_name}}</p>
+                            </td>
+                            <td>
+                                <p>{{teacher.personalInfo.email}}</p>
+                            </td>
+                            <td>
+                                <p>{{teacher.personalInfo.address}}</p>
+                            </td>
+                            <td>
+                                <p>{{teacher.personalInfo.phone}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <h3 class="text-center">Zakazi cas</h3>
+                    <table class="table text-center">
+                        <tr>
+                            <td>
+                                <label for="">Izaberite predmet</label>
+                            </td>
+                            <td>
+                                <ng-container *ngIf="teacher.schoolInfo.subjects.length > 1">
+                                    <select class="form-select" [(ngModel)]="selectedClass">
+                                        <option value="{{s}}" *ngFor="let s of teacher.schoolInfo.subjects">{{ s }}
+                                        </option>
+                                    </select>
+                                </ng-container>
+                                <ng-container *ngIf="teacher.schoolInfo.subjects.length == 1">
+                                    <select class="form-select" [(ngModel)]="selectedClass" disabled>
+                                        <option value="{{s}}" *ngFor="let s of teacher.schoolInfo.subjects" selected>{{
+                                            s }}</option>
+                                    </select>
+                                </ng-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="">Izaberite datum i vreme</label>
+                            </td>
+                            <td>
+                                <input type="datetime-local" [(ngModel)]="dateOfClass" step="1800">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="">Koje teme zelite da obradite</label>
+                            </td>
+                            <td>
+                                <input type="text" [(ngModel)]="topicOfClass">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Zelim dupli cas</label></td>
+                            <td><input type="checkbox" name="doubleClass" id="" [(ngModel)]="doubleClass"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><button (click)="reserveClass()" type="button"
+                                    class="btn btn-outline-primary">Zakazi!</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="com-sm-12">
+                <th>Predmeti:</th>
+                <table>
+                    <tr *ngFor="let s of teacher.schoolInfo.subjects">
+                        <td>{{s}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container" *ngIf="user.type==='Nastavnik'">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Ucenik: {{student.personalInfo.first_name}} {{student.personalInfo.last_name}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table text-center">
+                    <th>Predmet</th>
+                    <th>Cilj</th>
+                    <tr *ngFor="let c of classes">
+                        <td>{{c.classInfo.class}}</td>
+                        <td>{{c.classInfo.topic}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>

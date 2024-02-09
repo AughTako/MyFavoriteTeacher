@@ -125,7 +125,10 @@
                     <option value="Istorija">Istorija</option>
                     <option value="Geografija">Geografija</option>
                     <option value="Svet oko nas">Svet oko nas</option>
+                    <option value="{{s.name}}" *ngFor="let s of customSubjects">{{s.name}}</option>
                 </select>
+                <label for="">Unesite svoj predmet</label>
+                <input type="text" [(ngModel)]="otherSubject">
                 <!-- TODO Add option to add your own -->
             </td>
         </tr>

@@ -29,6 +29,7 @@ export class UcenikComponent implements OnInit{
   currectGrade: number = 0;
 
   teachers: any[] = [];
+  switchNumbers: any;
 
   constructor(private service: UnifiedService, private router: Router) {}
   
@@ -42,18 +43,47 @@ export class UcenikComponent implements OnInit{
       }
   }
 
+  isSrednja(): boolean {
+    const regex = /^srednja.*/;
+    return regex.test(this.user.schoolInfo.school_type.toLowerCase());
+  }
+
+  checkSchoolType(){
+    // this.school_type = this.user.schoolInfo.school_type;
+    console.log(this.school_type);
+    if(this.school_type !== 'osnovna')
+      this.switchNumbers = true;
+    else {
+      this.switchNumbers = false;
+    }
+    console.log(this.switchNumbers)
+  }
+
   displayAvatar() {
-    console.log(this.user.personalInfo.avatar.toString().replace('C:\\Users\\Nazgul\\Desktop\\Project\\backend\\uploads\\images\\', ''));
-    this.avatarUrl = this.service.getImgUrl(this.user.personalInfo.avatar.toString().replace('C:\\Users\\Nazgul\\Desktop\\Project\\backend\\uploads\\images\\', ''));
+    console.log(this.user.personalInfo.avatar.toString().replace('uploads\\images\\', ''));
+    this.avatarUrl = this.service.getImgUrl(this.user.personalInfo.avatar.toString().replace('uploads\\images\\', ''));
   }
   changeInfoToggle() {
+
     if(this.changeInfo == false)
       this.changeInfo = true;
     else
       this.changeInfo = false;
   }
+  avatarPath: String = ''
+
+  onAvatarChange(event: any) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.service.uploadImage(file).subscribe((response: any) => {
+        this.avatarPath = response.imagePath;
+        console.log(this.avatarPath);
+      });
+    }
+  }
 
   changeInformation() {
+
     this.service.changeInfo(
       this.user.username,
       this.first_name,
@@ -62,7 +92,8 @@ export class UcenikComponent implements OnInit{
       this.phone,
       this.address,
       this.school_type,
-      this.currectGrade
+      this.currectGrade,
+      this.avatarPath
       ).subscribe((info: any) => {
         if(info) {
           this.user = info.user;
@@ -81,7 +112,9 @@ export class UcenikComponent implements OnInit{
     .subscribe((teachers: TeacherWrapper[]) => {
       if(teachers) {
         this.teachers = teachers;
+        console.log('------------')
         console.log(this.teachers);
+        console.log('------------')
       }
     })
   }

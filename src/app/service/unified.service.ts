@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UnifiedService {
+
   uri: String = 'http://localhost:4000';
   constructor(private http: HttpClient) { }
 
@@ -95,12 +96,12 @@ export class UnifiedService {
     return this.http.get(`${this.uri}/admin`)
   }
 
-  getImgUrl(pdfPath: string): string {
-    return `${this.uri}/image/${pdfPath.replace('C:/Users/Nazgul/Desktop/Project/backend/uploads', '')}`;
+  getImgUrl(imgPath: string): string {
+    return `${this.uri}/image/${imgPath}`;
   }
 
-  getPDFUrl(imgPath: string): string {
-    return `${this.uri}/pdf/${imgPath.replace('C:/Users/Nazgul/Desktop/Project/backend/uploads', '')}`;
+  getPDFUrl(pdfPath: string): string {
+    return `${this.uri}/pdf/${pdfPath}`;
   }
 
   acceptTeacher(username_: String) {
@@ -147,7 +148,7 @@ export class UnifiedService {
     return this.http.get(`${this.uri}/users/engaged-teachers/?sortBy=${sortBy}&sortOrder=${sortOrder}&searchName=${searchName}&searchLast=${searchLast}&searchSubject=${searchSubject}`)
   }
 
-  changeInfo(username: String, first_name: String, last_name: String, email: String, phone: String, address: String, schoolType: String, currentGrade: number) {
+  changeInfo(username: String, first_name: String, last_name: String, email: String, phone: String, address: String, schoolType: String, currentGrade: number ,avatarPath: String) {
     const data = {
       username: username,
       first_name: first_name,
@@ -155,8 +156,9 @@ export class UnifiedService {
       email: email,
       phone: phone,
       address: address,
-      schoolType: schoolType,
-      currentGrade: currentGrade
+      school_type: schoolType,
+      currentGrade: currentGrade,
+      avatarPath: avatarPath
     }
     return this.http.post(`${this.uri}/users/change-information`, data);
   }
@@ -169,5 +171,67 @@ export class UnifiedService {
     return this.http.get(
       `${this.uri}/users/filter/?type=${school_type}&year=${school_year}&first_name=${searchFirst}&last_name=${searchLast}&subject=${searchSubject}&sortBy=${sortBy}&sortOrder=${sortOrder}`
       )
+  }
+
+  getTeacher(username: String) {
+    return this.http.get(`${this.uri}/users/teacher/?username=${username}`);
+  }
+
+  sendClassRequest(username: String, studentUsername: String, first_name: String, last_name: String,
+    class_: String, date_: String, topic_: String, doubleClass: boolean) {
+    const data = {
+      username: username,
+      studentUsername: studentUsername,
+      first_name: first_name,
+      last_name: last_name,
+      className: class_,
+      dateOf: date_,
+      topic: topic_,
+      doubleFlag: doubleClass
+    }
+    return this.http.post(`${this.uri}/class/send-request`, data);
+  }
+
+  getClassRequests(username: String) {
+    return this.http.get(`${this.uri}/class/?username=${username}`);
+  }
+
+  acceptClassRequest(id: String){
+    return this.http.get(`${this.uri}/class/accept/?id=${id}`);
+  }
+
+  getAcceptedRequests(username_: String) {
+    return this.http.get(`${this.uri}/class/accepted/?username=${username_}`)
+  }
+
+  getStudents(username_ : String) {
+    return this.http.get(`${this.uri}/users/my-students/?username=${username_}`)
+  }
+
+  getStudentByClasses(usernameS : String, usernameT: String) {
+    return this.http.get(`${this.uri}/users/my-students-classes/?usernameT=${usernameT}&usernameS=${usernameS}`)
+  }
+
+  getStudentInfo(username_ : String) {
+    return this.http.get(`${this.uri}/users/student/?username=${username_}`)
+  }
+
+  getAllStudents() {
+    return this.http.get(`${this.uri}/users/all-students`)
+  }
+  getAllTeachers() {
+    return this.http.get(`${this.uri}/users/all-teachers`)
+  }
+
+  getAllClasses() {
+    return this.http.get(`${this.uri}/class/get-all`)
+  }
+
+  addSubject(subject: String) {
+    return this.http.get(`${this.uri}/subjects/add/?subject=${subject}`)
+  }
+
+  getAllSubjects() {
+    return this.http.get(`${this.uri}/subjects/`)
   }
 }

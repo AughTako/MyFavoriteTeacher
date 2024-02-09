@@ -18,9 +18,6 @@ export class IndexComponent implements OnInit{
   engagedTeachers: TeacherWrapper[];
   sortBy: String = 'asc'
 
-  /*TODO Sort locally?
-   *
-   */
   constructor(private service: UnifiedService) {}
   ngOnInit(): void {
     this.getNumberOfStudents();

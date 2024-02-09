@@ -18,6 +18,13 @@ export class User {
     schoolInfo: {
         school_type: String;
         currentGrade: number;
+        subjects: String[];
+        ageGroups: String[];
+        sourceOfInformation: String;
+    }
+    workHours: {
+        start: String;
+        end: String;
     }
     CV: String
 }
